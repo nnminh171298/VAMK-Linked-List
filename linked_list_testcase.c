@@ -7,7 +7,7 @@
 
 linked_list *generateNode(int index, int data)
 {
-	char *data_ptr = (char *) malloc(sizeof(char) * 10);
+	char *data_ptr = (char *) malloc(sizeof(char) * 20);
 	sprintf(data_ptr, "Data %d", data);
 	
 	linked_list *new_node = (linked_list *) malloc(sizeof(linked_list));
@@ -44,7 +44,6 @@ TEST(ADD, add_1_empty)
 	int result = add_to_list(node_0, data);
 	
 	EXPECT_EQ(-1, result);
-	EXPECT_EQ(nullptr, node_0);
 }
 
 TEST(ADD, add_2_head_given)
@@ -141,4 +140,20 @@ TEST(ADD, add_5_NULL_string)
 	
 	freeNode(node_0);
 	freeNode(node_1);
+}
+
+TEST(ADD, add_6_out_of_index)
+{
+	linked_list *node_0 = generateNode(0, 0);
+	linked_list *node_max = generateNode(0x7FFF'FFFF, 0x7FFF'FFFF);
+	linkNodes(&node_0, &node_max);
+	char *data = const_cast<char *>("Data max+1");
+	int result = add_to_list(node_max, data);
+	
+	EXPECT_EQ(-1, result);
+	EXPECT_TRUE(checkNode(node_0, 0, "Data 0", node_max));
+	EXPECT_TRUE(checkNode(node_max, 0x7FFF'FFFF, "Data 2147483647", nullptr));
+	
+	freeNode(node_0);
+	freeNode(node_max);
 }

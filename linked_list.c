@@ -17,6 +17,8 @@ int add_to_list(linked_list *list, char *string)
 		list = list->next;
 		last_index = list->index;
 	}
+	if(last_index == 0x7FFF'FFFF)
+		return -1;
 	
 	// create new data
 	auto length = strlen(string);
