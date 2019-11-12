@@ -1,6 +1,6 @@
 GTEST_DIR=~/googletest/googletest
 PROJ=linked_list
-TEST_CASE=test_case
+TEST_CASE=linked_list_testcase
 #TEST_CASE=student_test
 COPTS=-fprofile-arcs -ftest-coverage
 LDFLAGS=-fprofile-arcs -ftest-coverage
