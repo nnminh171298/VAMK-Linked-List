@@ -3,16 +3,28 @@
 #include <cstdlib>
 #include <cstring>
 
+//----------------------Helpers------------------------------------------------
+
+void print_data(char *data)
+{
+	if(data != nullptr)
+		printf("%s", data);
+	else
+		printf("<empty>");
+}
+
+//----------------------Functions----------------------------------------------
+
 int add_to_list(linked_list *list, char *string)
 {
 	// cannot replace NULL list with new node
 	// need (linked_list **list)
-	if(list == NULL || string == NULL)
+	if(list == nullptr || string == nullptr)
 		return -1;
 	
 	// find tail
 	int last_index = list->index;
-	while(list->next != NULL)
+	while(list->next != nullptr)
 	{
 		list = list->next;
 		last_index = list->index;
@@ -42,16 +54,39 @@ int add_to_list(linked_list *list, char *string)
 
 int display_item(linked_list *list)
 {
-	if(list == NULL || list->data == NULL)
+	if(list == nullptr)
 		return -1;
 	
-	printf("%s\n", list->data);
+	printf("Display item: ");
+	print_data(list->data);
+	printf("\n");
+	
 	return 0;
 }
 
 int display_list(linked_list *list)
 {
+	if(list == nullptr)
+		return -1;
 	
+	int count = 1;
+	printf("Display list: ");
+	print_data(list->data);
+	
+	while(true)
+	{
+		list = list->next;
+		if(list != nullptr)
+		{
+			printf(" - ");
+			print_data(list->data);
+			count++;
+		}
+		else
+			break;
+	}
+	printf("\n");
+	return count;
 }
 
 linked_list *search_from_list(linked_list *list, char *string)

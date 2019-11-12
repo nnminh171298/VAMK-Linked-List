@@ -233,7 +233,7 @@ TEST(DISP_ITEM, disp_item_5_NULL_string)
 	node_0->next = nullptr;
 	int result = display_item(node_0);
 	
-	EXPECT_EQ(-1, result);
+	EXPECT_EQ(0, result);
 	EXPECT_EQ(0, node_0->index);
 	
 	free(node_0);
@@ -292,7 +292,7 @@ TEST(DISP_LIST, disp_list_4_NULL_string_head)
 	int result = display_list(node_0);
 	node_0->data = save_str;
 	
-	EXPECT_EQ(-1, result);
+	EXPECT_EQ(3, result);
 	EXPECT_TRUE(checkNode(node_0, 0, "Data 0", node_1));
 	EXPECT_TRUE(checkNode(node_1, 1, "Data 1", node_2));
 	EXPECT_TRUE(checkNode(node_2, 2, "Data 2", nullptr));
@@ -315,7 +315,7 @@ TEST(DISP_LIST, disp_list_5_NULL_string_mid)
 	int result = display_list(node_0);
 	node_1->data = save_str;
 	
-	EXPECT_EQ(-1, result);
+	EXPECT_EQ(3, result);
 	EXPECT_TRUE(checkNode(node_0, 0, "Data 0", node_1));
 	EXPECT_TRUE(checkNode(node_1, 1, "Data 1", node_2));
 	EXPECT_TRUE(checkNode(node_2, 2, "Data 2", nullptr));
