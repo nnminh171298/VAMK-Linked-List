@@ -89,9 +89,9 @@ TEST(SWAP, swap_5_normal)
 	
 	EXPECT_EQ(0, result);
 	EXPECT_TRUE(checkNode(node_0, 0, "Data 0", node_1));
-	EXPECT_TRUE(checkNode(node_1, 1, "Data 3", node_2));
+	EXPECT_TRUE(checkNode(node_1, 3, "Data 3", node_2));
 	EXPECT_TRUE(checkNode(node_2, 2, "Data 2", node_3));
-	EXPECT_TRUE(checkNode(node_3, 3, "Data 1", node_4));
+	EXPECT_TRUE(checkNode(node_3, 1, "Data 1", node_4));
 	EXPECT_TRUE(checkNode(node_4, 4, "Data 4", nullptr));
 	
 	freeNode(node_0);
@@ -112,12 +112,13 @@ TEST(SWAP, swap_6_adjacent)
 	linkNodes(&node_1, &node_2);
 	linkNodes(&node_2, &node_3);
 	linkNodes(&node_3, &node_4);
+	
 	int result = swap_items(node_1, node_2);
 	
 	EXPECT_EQ(0, result);
 	EXPECT_TRUE(checkNode(node_0, 0, "Data 0", node_1));
-	EXPECT_TRUE(checkNode(node_1, 1, "Data 2", node_2));
-	EXPECT_TRUE(checkNode(node_2, 2, "Data 1", node_3));
+	EXPECT_TRUE(checkNode(node_1, 2, "Data 2", node_2));
+	EXPECT_TRUE(checkNode(node_2, 1, "Data 1", node_3));
 	EXPECT_TRUE(checkNode(node_3, 3, "Data 3", node_4));
 	EXPECT_TRUE(checkNode(node_4, 4, "Data 4", nullptr));
 	
@@ -142,9 +143,9 @@ TEST(SWAP, swap_7_head)
 	int result = swap_items(node_0, node_2);
 	
 	EXPECT_EQ(0, result);
-	EXPECT_TRUE(checkNode(node_0, 0, "Data 2", node_1));
+	EXPECT_TRUE(checkNode(node_0, 2, "Data 2", node_1));
 	EXPECT_TRUE(checkNode(node_1, 1, "Data 1", node_2));
-	EXPECT_TRUE(checkNode(node_2, 2, "Data 0", node_3));
+	EXPECT_TRUE(checkNode(node_2, 0, "Data 0", node_3));
 	EXPECT_TRUE(checkNode(node_3, 3, "Data 3", node_4));
 	EXPECT_TRUE(checkNode(node_4, 4, "Data 4", nullptr));
 	
@@ -171,9 +172,9 @@ TEST(SWAP, swap_8_tail)
 	EXPECT_EQ(0, result);
 	EXPECT_TRUE(checkNode(node_0, 0, "Data 0", node_1));
 	EXPECT_TRUE(checkNode(node_1, 1, "Data 1", node_2));
-	EXPECT_TRUE(checkNode(node_2, 2, "Data 4", node_3));
+	EXPECT_TRUE(checkNode(node_2, 4, "Data 4", node_3));
 	EXPECT_TRUE(checkNode(node_3, 3, "Data 3", node_4));
-	EXPECT_TRUE(checkNode(node_4, 4, "Data 2", nullptr));
+	EXPECT_TRUE(checkNode(node_4, 2, "Data 2", nullptr));
 	
 	freeNode(node_0);
 	freeNode(node_1);

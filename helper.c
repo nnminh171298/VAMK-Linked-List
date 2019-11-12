@@ -40,8 +40,13 @@ void freeNode(linked_list *node)
 
 bool checkNode(linked_list *node, int index, char const *data, linked_list *next)
 {
-	int string_compare = strcmp(data, node->data);
-	return (node->index == index) && (node->next == next) && (string_compare == 0);
+	bool data_compare = false;
+	if(node->data == nullptr && data == nullptr)
+		data_compare = true;
+	else if(node->data != nullptr && data != nullptr)
+		data_compare = (strcmp(data, node->data) == 0);
+	
+	return (node->index == index) && (node->next == next) && data_compare;
 }
 
 void linkNodes(linked_list **prev_node, linked_list **next_node)
