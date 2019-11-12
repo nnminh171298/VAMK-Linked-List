@@ -1,6 +1,6 @@
-.base
-.run
-.gcno
+*.base
+*.run
+*.gcno
 my_test
 main
-.o
+*.o
