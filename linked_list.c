@@ -91,7 +91,27 @@ int display_list(linked_list *list)
 
 linked_list *search_from_list(linked_list *list, char *string)
 {
+	if(string == nullptr)
+	{
+		while(true)
+		{
+			if(list == nullptr)
+				return nullptr;
+			if(list->data == nullptr)
+				return list;
+			list = list->next;
+		}
+	}
 	
+	while(true)
+	{
+		if(list == nullptr)
+			return nullptr;
+		if(list->data != nullptr)
+			if(strcmp(string, list->data) == 0)
+				return list;
+		list = list->next;
+	}
 }
 
 int delete_from_list(linked_list *list, int index)
