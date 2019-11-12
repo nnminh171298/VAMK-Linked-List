@@ -11,7 +11,7 @@ int add_to_list(linked_list *list, char *string)
 		return -1;
 	
 	// find tail
-	int last_index = 0;
+	int last_index = list->index;
 	while(list->next != NULL)
 	{
 		list = list->next;
