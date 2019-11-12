@@ -42,7 +42,11 @@ int add_to_list(linked_list *list, char *string)
 
 int display_item(linked_list *list)
 {
+	if(list == NULL || list->data == NULL)
+		return -1;
 	
+	printf("%s\n", list->data);
+	return 0;
 }
 
 int display_list(linked_list *list)

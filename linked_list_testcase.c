@@ -180,7 +180,7 @@ TEST(DISP_ITEM, disp_item_2_head)
 	EXPECT_EQ(0, result);
 	EXPECT_TRUE(checkNode(node_0, 0, "Data 0", node_1));
 	EXPECT_TRUE(checkNode(node_1, 1, "Data 1", node_2));
-	EXPECT_TRUE(checkNode(node_2, 1, "Data 2", nullptr));
+	EXPECT_TRUE(checkNode(node_2, 2, "Data 2", nullptr));
 	
 	freeNode(node_0);
 	freeNode(node_1);
@@ -199,7 +199,7 @@ TEST(DISP_ITEM, disp_item_3_mid)
 	EXPECT_EQ(0, result);
 	EXPECT_TRUE(checkNode(node_0, 0, "Data 0", node_1));
 	EXPECT_TRUE(checkNode(node_1, 1, "Data 1", node_2));
-	EXPECT_TRUE(checkNode(node_2, 1, "Data 2", nullptr));
+	EXPECT_TRUE(checkNode(node_2, 2, "Data 2", nullptr));
 	
 	freeNode(node_0);
 	freeNode(node_1);
@@ -218,7 +218,7 @@ TEST(DISP_ITEM, disp_item_4_tail)
 	EXPECT_EQ(0, result);
 	EXPECT_TRUE(checkNode(node_0, 0, "Data 0", node_1));
 	EXPECT_TRUE(checkNode(node_1, 1, "Data 1", node_2));
-	EXPECT_TRUE(checkNode(node_2, 1, "Data 2", nullptr));
+	EXPECT_TRUE(checkNode(node_2, 2, "Data 2", nullptr));
 	
 	freeNode(node_0);
 	freeNode(node_1);
