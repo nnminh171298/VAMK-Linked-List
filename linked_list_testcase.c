@@ -238,3 +238,89 @@ TEST(DISP_ITEM, disp_item_5_NULL_string)
 	
 	free(node_0);
 }
+
+//----------------------Display-list-------------------------------------------
+
+TEST(DISP_LIST, disp_list_1_empty)
+{
+	linked_list *node_0 = nullptr;
+	int result = display_list(node_0);
+	
+	EXPECT_EQ(-1, result);
+}
+
+TEST(DISP_LIST, disp_list_2_normal_one)
+{
+	linked_list *node_0 = generateNode(0, 0);
+	int result = display_list(node_0);
+	
+	EXPECT_EQ(1, result);
+	EXPECT_TRUE(checkNode(node_0, 0, "Data 0", nullptr));
+	
+	freeNode(node_0);
+}
+
+TEST(DISP_LIST, disp_list_3_normal_many)
+{
+	linked_list *node_0 = generateNode(0, 0);
+	linked_list *node_1 = generateNode(1, 1);
+	linked_list *node_2 = generateNode(2, 2);
+	linkNodes(&node_0, &node_1);
+	linkNodes(&node_1, &node_2);
+	int result = display_list(node_0);
+	
+	EXPECT_EQ(3, result);
+	EXPECT_TRUE(checkNode(node_0, 0, "Data 0", node_1));
+	EXPECT_TRUE(checkNode(node_1, 1, "Data 1", node_2));
+	EXPECT_TRUE(checkNode(node_2, 2, "Data 2", nullptr));
+	
+	freeNode(node_0);
+	freeNode(node_1);
+	freeNode(node_2);
+}
+
+TEST(DISP_LIST, disp_list_4_NULL_string_head)
+{
+	linked_list *node_0 = generateNode(0, 0);
+	linked_list *node_1 = generateNode(1, 1);
+	linked_list *node_2 = generateNode(2, 2);
+	linkNodes(&node_0, &node_1);
+	linkNodes(&node_1, &node_2);
+	
+	auto save_str = node_0->data;
+	node_0->data = nullptr;
+	int result = display_list(node_0);
+	node_0->data = save_str;
+	
+	EXPECT_EQ(-1, result);
+	EXPECT_TRUE(checkNode(node_0, 0, "Data 0", node_1));
+	EXPECT_TRUE(checkNode(node_1, 1, "Data 1", node_2));
+	EXPECT_TRUE(checkNode(node_2, 2, "Data 2", nullptr));
+	
+	freeNode(node_0);
+	freeNode(node_1);
+	freeNode(node_2);
+}
+
+TEST(DISP_LIST, disp_list_5_NULL_string_mid)
+{
+	linked_list *node_0 = generateNode(0, 0);
+	linked_list *node_1 = generateNode(1, 1);
+	linked_list *node_2 = generateNode(2, 2);
+	linkNodes(&node_0, &node_1);
+	linkNodes(&node_1, &node_2);
+	
+	auto save_str = node_1->data;
+	node_1->data = nullptr;
+	int result = display_list(node_0);
+	node_1->data = save_str;
+	
+	EXPECT_EQ(-1, result);
+	EXPECT_TRUE(checkNode(node_0, 0, "Data 0", node_1));
+	EXPECT_TRUE(checkNode(node_1, 1, "Data 1", node_2));
+	EXPECT_TRUE(checkNode(node_2, 2, "Data 2", nullptr));
+	
+	freeNode(node_0);
+	freeNode(node_1);
+	freeNode(node_2);
+}
