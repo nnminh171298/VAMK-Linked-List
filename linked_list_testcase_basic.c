@@ -1,7 +1,6 @@
 #include <gtest/gtest.h>
 
 #include <cstdio>
-#include <cstring>
 
 #include "helper.h"
 #include "linked_list.h"
