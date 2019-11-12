@@ -18,6 +18,20 @@ linked_list *generateNode(int index, int data)
 	return new_node;
 }
 
+linked_list *generateNodeWithData(int index, char const *data)
+{
+	auto length = strlen(data);
+	char *data_ptr = (char *) malloc(sizeof(char) * (length+1));
+	strcpy(data_ptr, data);
+	
+	linked_list *new_node = (linked_list *) malloc(sizeof(linked_list));
+	new_node->data = data_ptr;
+	new_node->index = index;
+	new_node->next = nullptr;
+	
+	return new_node;
+}
+
 void freeNode(linked_list *node)
 {
 	free(node->data);
