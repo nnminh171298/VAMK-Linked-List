@@ -30,6 +30,11 @@ bool checkNode(linked_list *node, int index, char const *data, linked_list *next
 	return (node->index == index) && (node->next == next) && (string_compare == 0);
 }
 
+void linkNodes(linked_list **prev_node, linked_list **next_node)
+{
+	(*prev_node)->next = *next_node;
+}
+
 //----------------------Add----------------------------------------------------
 
 TEST(ADD, add_1_empty)
@@ -42,24 +47,83 @@ TEST(ADD, add_1_empty)
 	EXPECT_EQ(nullptr, node_0);
 }
 
-TEST(ADD, add_2_normal)
+TEST(ADD, add_2_head_given)
 {
 	linked_list *node_0 = generateNode(0, 0);
-	char *data = const_cast<char *>("Data 1");
+	linked_list *node_1 = generateNode(1, 1);
+	linkNodes(&node_0, &node_1);
+	char *data = const_cast<char *>("Data 2");
 	int result = add_to_list(node_0, data);
 	
-	EXPECT_EQ(1, result);
-	EXPECT_NE(nullptr, node_0);
-	if(node_0->next == nullptr)
+	EXPECT_EQ(2, result);
+	EXPECT_NE(nullptr, node_1->next);
+	if(node_1->next == nullptr)
 	{
 		freeNode(node_0);
+		freeNode(node_1);
 		return;
 	}
 	
-	linked_list *node_1 = node_0->next;
+	linked_list *node_2 = node_1->next;
 	EXPECT_TRUE(checkNode(node_0, 0, "Data 0", node_1));
-	EXPECT_TRUE(checkNode(node_1, 1, "Data 1", nullptr));
-	EXPECT_NE(data, node_1->data);
+	EXPECT_TRUE(checkNode(node_1, 1, "Data 1", node_2));
+	EXPECT_TRUE(checkNode(node_2, 2, "Data 2", nullptr));
+	EXPECT_NE(data, node_2->data);
 	
 	freeNode(node_0);
+	freeNode(node_1);
+}
+
+TEST(ADD, add_3_tail_given)
+{
+	linked_list *node_0 = generateNode(0, 0);
+	linked_list *node_1 = generateNode(1, 1);
+	linkNodes(&node_0, &node_1);
+	char *data = const_cast<char *>("Data 2");
+	int result = add_to_list(node_1, data);
+	
+	EXPECT_EQ(2, result);
+	EXPECT_NE(nullptr, node_1->next);
+	if(node_1->next == nullptr)
+	{
+		freeNode(node_0);
+		freeNode(node_1);
+		return;
+	}
+	
+	linked_list *node_2 = node_1->next;
+	EXPECT_TRUE(checkNode(node_0, 0, "Data 0", node_1));
+	EXPECT_TRUE(checkNode(node_1, 1, "Data 1", node_2));
+	EXPECT_TRUE(checkNode(node_2, 2, "Data 2", nullptr));
+	EXPECT_NE(data, node_2->data);
+	
+	freeNode(node_0);
+	freeNode(node_1);
+}
+
+TEST(ADD, add_4_empty_string)
+{
+	linked_list *node_0 = generateNode(0, 0);
+	linked_list *node_1 = generateNode(1, 1);
+	linkNodes(&node_0, &node_1);
+	char *data = const_cast<char *>("");
+	int result = add_to_list(node_1, data);
+	
+	EXPECT_EQ(2, result);
+	EXPECT_NE(nullptr, node_1->next);
+	if(node_1->next == nullptr)
+	{
+		freeNode(node_0);
+		freeNode(node_1);
+		return;
+	}
+	
+	linked_list *node_2 = node_1->next;
+	EXPECT_TRUE(checkNode(node_0, 0, "Data 0", node_1));
+	EXPECT_TRUE(checkNode(node_1, 1, "Data 1", node_2));
+	EXPECT_TRUE(checkNode(node_2, 2, "", nullptr));
+	EXPECT_NE(data, node_2->data);
+	
+	freeNode(node_0);
+	freeNode(node_1);
 }

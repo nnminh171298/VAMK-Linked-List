@@ -21,10 +21,14 @@ int add_to_list(linked_list *list, char *string)
 	// create new data
 	auto length = strlen(string);
 	char *data_ptr = (char *) malloc(sizeof(char) * (length+1));
+	if(data_ptr == nullptr)
+		return -1;
 	strcpy(data_ptr, string);
 	
 	// create new node
 	linked_list *new_node = (linked_list *) malloc(sizeof(linked_list));
+	if(new_node == nullptr)
+		return -1;
 	new_node->data = data_ptr;
 	new_node->index = last_index + 1;
 	new_node->next = nullptr;
