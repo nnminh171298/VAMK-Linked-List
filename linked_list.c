@@ -13,7 +13,7 @@ void print_data(char *data)
 		printf("<null>");
 }
 
-//----------------------Functions----------------------------------------------
+//----------------------Basic--------------------------------------------------
 
 int add_to_list(linked_list *list, char *string)
 {
@@ -150,3 +150,26 @@ int delete_from_list(linked_list *list, int index)
 	
 	return new_index;
 }
+
+//----------------------Additional---------------------------------------------
+
+int empty_list(linked_list *list)
+{
+	
+}
+
+int swap_items(linked_list *node_1, linked_list *node_2)
+{
+	
+}
+
+int sort_list(linked_list *list)
+{
+	
+}
+
+int linkedlist_status(linked_list *list)
+{
+	
+}
+
