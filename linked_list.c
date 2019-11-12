@@ -10,7 +10,7 @@ void print_data(char *data)
 	if(data != nullptr)
 		printf("%s", data);
 	else
-		printf("<empty>");
+		printf("<null>");
 }
 
 //----------------------Functions----------------------------------------------
