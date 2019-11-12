@@ -127,3 +127,18 @@ TEST(ADD, add_4_empty_string)
 	freeNode(node_0);
 	freeNode(node_1);
 }
+
+TEST(ADD, add_5_NULL_string)
+{
+	linked_list *node_0 = generateNode(0, 0);
+	linked_list *node_1 = generateNode(1, 1);
+	linkNodes(&node_0, &node_1);
+	int result = add_to_list(node_1, nullptr);
+	
+	EXPECT_EQ(-1, result);
+	EXPECT_TRUE(checkNode(node_0, 0, "Data 0", node_1));
+	EXPECT_TRUE(checkNode(node_1, 1, "Data 1", nullptr));
+	
+	freeNode(node_0);
+	freeNode(node_1);
+}
