@@ -330,7 +330,7 @@ TEST(DISP_LIST, disp_list_5_NULL_string_mid)
 TEST(SEARCH, search_1_empty)
 {
 	linked_list *node_0 = nullptr;
-	auto result = search_from_list(node_0, "Data 0");
+	auto result = search_from_list(node_0, const_cast<char *>("Data 0"));
 	
 	EXPECT_EQ(nullptr, result);
 }
@@ -342,11 +342,11 @@ TEST(SEARCH, search_2_normal)
 	linked_list *node_2 = generateNode(2, 2);
 	linkNodes(&node_0, &node_1);
 	linkNodes(&node_1, &node_2);
-	auto result = search_from_list(node_0, "Data 1");
+	auto result = search_from_list(node_0, const_cast<char *>("Data 1"));
 	
-	EXPECT_EQ(node_1, result);
 	EXPECT_TRUE(checkNode(node_0, 0, "Data 0", node_1));
 	EXPECT_TRUE(checkNode(node_1, 1, "Data 1", node_2));
+	EXPECT_TRUE(checkNode(result, 1, "Data 1", node_2));
 	EXPECT_TRUE(checkNode(node_2, 2, "Data 2", nullptr));
 	
 	freeNode(node_0);
@@ -365,12 +365,12 @@ TEST(SEARCH, search_3_empty_string)
 	auto save_str = node_2->data;
 	char *empty_string = const_cast<char *>("");
 	node_2->data = empty_string;
-	auto result = search_from_list(node_0, "");
+	auto result = search_from_list(node_0, const_cast<char *>(""));
 	
-	EXPECT_EQ(node_2, result);
 	EXPECT_TRUE(checkNode(node_0, 0, "Data 0", node_1));
 	EXPECT_TRUE(checkNode(node_1, 1, "Data 1", node_2));
 	EXPECT_TRUE(checkNode(node_2, 2, "", nullptr));
+	EXPECT_TRUE(checkNode(result, 2, "", nullptr));
 	
 	node_2->data = save_str;
 	freeNode(node_0);
@@ -391,10 +391,10 @@ TEST(SEARCH, search_4_NULL_string)
 	auto result = search_from_list(node_0, nullptr);
 	node_2->data = save_str;
 	
-	EXPECT_EQ(node_2, result);
 	EXPECT_TRUE(checkNode(node_0, 0, "Data 0", node_1));
 	EXPECT_TRUE(checkNode(node_1, 1, "Data 1", node_2));
 	EXPECT_TRUE(checkNode(node_2, 2, "Data 2", nullptr));
+	EXPECT_TRUE(checkNode(result, 2, "Data 2", nullptr));
 	
 	
 	freeNode(node_0);
@@ -409,7 +409,7 @@ TEST(SEARCH, search_5_not_found)
 	linked_list *node_2 = generateNode(2, 2);
 	linkNodes(&node_0, &node_1);
 	linkNodes(&node_1, &node_2);
-	auto result = search_from_list(node_0, "Something strange");
+	auto result = search_from_list(node_0, const_cast<char *>("Something strange"));
 	
 	EXPECT_EQ(nullptr, result);
 	EXPECT_TRUE(checkNode(node_0, 0, "Data 0", node_1));
