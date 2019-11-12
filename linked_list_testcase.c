@@ -500,3 +500,11 @@ TEST(DELETE, delete_5_tail)
 	freeNode(node_0);
 	freeNode(node_1);
 }
+
+TEST(DELETE, delete_6_only)
+{
+	linked_list *node_0 = generateNode(0, 0);
+	auto result = delete_from_list(node_0, 0);
+	
+	EXPECT_EQ(0, result);
+}

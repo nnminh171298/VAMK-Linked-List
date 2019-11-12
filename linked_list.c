@@ -93,28 +93,60 @@ linked_list *search_from_list(linked_list *list, char *string)
 {
 	if(string == nullptr)
 	{
-		while(true)
+		while(list != nullptr)
 		{
-			if(list == nullptr)
-				return nullptr;
 			if(list->data == nullptr)
 				return list;
 			list = list->next;
 		}
+		return nullptr;
 	}
 	
-	while(true)
+	while(list != nullptr)
 	{
-		if(list == nullptr)
-			return nullptr;
 		if(list->data != nullptr)
 			if(strcmp(string, list->data) == 0)
 				return list;
 		list = list->next;
 	}
+	return nullptr;
 }
 
 int delete_from_list(linked_list *list, int index)
 {
+	if(list == nullptr)
+		return -1;
 	
+	auto head = list;
+	linked_list *prev = nullptr;
+	while(true)
+	{
+		if(list == nullptr)
+			return -1;
+		if(list->index == index)
+		{
+			if(prev != nullptr)
+				prev->next = list->next;
+			else
+				head = list->next;
+			free(list->data); // nullptr still OK
+			free(list);
+			break;
+		}
+		prev = list;
+		list = list->next;
+	}
+	
+	// more specification needed
+	// should the index start from 0?
+	// or just decrement everything after the deleted node?
+	int new_index = 0;
+	list = head;
+	while(list != nullptr)
+	{
+		list->index = new_index++;
+		list = list->next;
+	}
+	
+	return new_index;
 }
