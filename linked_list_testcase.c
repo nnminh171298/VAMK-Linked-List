@@ -420,3 +420,83 @@ TEST(SEARCH, search_5_not_found)
 	freeNode(node_1);
 	freeNode(node_2);
 }
+
+//----------------------Delete-from-list---------------------------------------
+
+TEST(DELETE, delete_1_empty)
+{
+	linked_list *node_0 = nullptr;
+	int result = delete_from_list(node_0, 0);
+	
+	EXPECT_EQ(-1, result);
+}
+
+TEST(DELETE, delete_2_normal)
+{
+	linked_list *node_0 = generateNode(0, 0);
+	linked_list *node_1 = generateNode(1, 1);
+	linked_list *node_2 = generateNode(2, 2);
+	linkNodes(&node_0, &node_1);
+	linkNodes(&node_1, &node_2);
+	auto result = delete_from_list(node_0, 1);
+	
+	EXPECT_EQ(2, result);
+	EXPECT_TRUE(checkNode(node_0, 0, "Data 0", node_2));
+	EXPECT_TRUE(checkNode(node_2, 1, "Data 2", nullptr));
+	
+	freeNode(node_0);
+	freeNode(node_2);
+}
+
+TEST(DELETE, delete_3_not_found)
+{
+	linked_list *node_0 = generateNode(0, 0);
+	linked_list *node_1 = generateNode(1, 1);
+	linked_list *node_2 = generateNode(2, 2);
+	linkNodes(&node_0, &node_1);
+	linkNodes(&node_1, &node_2);
+	auto result = delete_from_list(node_0, 4);
+	
+	EXPECT_EQ(-1, result);
+	EXPECT_TRUE(checkNode(node_0, 0, "Data 0", node_1));
+	EXPECT_TRUE(checkNode(node_1, 1, "Data 1", node_2));
+	EXPECT_TRUE(checkNode(node_2, 2, "Data 2", nullptr));
+	
+	freeNode(node_0);
+	freeNode(node_1);
+	freeNode(node_2);
+}
+
+TEST(DELETE, delete_4_head)
+{
+	linked_list *node_0 = generateNode(0, 0);
+	linked_list *node_1 = generateNode(1, 1);
+	linked_list *node_2 = generateNode(2, 2);
+	linkNodes(&node_0, &node_1);
+	linkNodes(&node_1, &node_2);
+	auto result = delete_from_list(node_0, 0);
+	
+	EXPECT_EQ(2, result);
+	EXPECT_TRUE(checkNode(node_1, 0, "Data 1", node_2));
+	EXPECT_TRUE(checkNode(node_2, 1, "Data 2", nullptr));
+	
+	freeNode(node_1);
+	freeNode(node_2);
+}
+
+TEST(DELETE, delete_5_tail)
+{
+	linked_list *node_0 = generateNode(0, 0);
+	linked_list *node_1 = generateNode(1, 1);
+	linked_list *node_2 = generateNode(2, 2);
+	linkNodes(&node_0, &node_1);
+	linkNodes(&node_1, &node_2);
+	auto result = delete_from_list(node_0, 2);
+	
+	EXPECT_EQ(2, result);
+	EXPECT_TRUE(checkNode(node_0, 0, "Data 0", node_1));
+	EXPECT_TRUE(checkNode(node_1, 1, "Data 1", nullptr));
+	
+	freeNode(node_0);
+	freeNode(node_1);
+}
