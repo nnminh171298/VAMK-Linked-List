@@ -27,7 +27,7 @@ void freeNode(linked_list *node)
 bool checkNode(linked_list *node, int index, char const *data, linked_list *next)
 {
 	int string_compare = strcmp(data, node->data);
-	return (node->index == index) && (node->next == next) && string_compare;
+	return (node->index == index) && (node->next == next) && (string_compare == 0);
 }
 
 //----------------------Add----------------------------------------------------
@@ -38,13 +38,8 @@ TEST(ADD, add_1_empty)
 	char *data = const_cast<char *>("Data 0");
 	int result = add_to_list(node_0, data);
 	
-	EXPECT_EQ(0, result);
-	EXPECT_NE(nullptr, node_0);
-	if(node_0 == nullptr)
-		return;
-	
-	EXPECT_TRUE(checkNode(node_0, 0, "Data 0", nullptr));
-	EXPECT_NE(data, node_0->data);
+	EXPECT_EQ(-1, result);
+	EXPECT_EQ(nullptr, node_0);
 }
 
 TEST(ADD, add_2_normal)

@@ -1,8 +1,37 @@
 #include "linked_list.h"
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
 
 int add_to_list(linked_list *list, char *string)
 {
+	// cannot replace NULL list with new node
+	// need (linked_list **list)
+	if(list == NULL || string == NULL)
+		return -1;
 	
+	// find tail
+	int last_index = 0;
+	while(list->next != NULL)
+	{
+		list = list->next;
+		last_index = list->index;
+	}
+	
+	// create new data
+	auto length = strlen(string);
+	char *data_ptr = (char *) malloc(sizeof(char) * (length+1));
+	strcpy(data_ptr, string);
+	
+	// create new node
+	linked_list *new_node = (linked_list *) malloc(sizeof(linked_list));
+	new_node->data = data_ptr;
+	new_node->index = last_index + 1;
+	new_node->next = nullptr;
+	
+	// add to list
+	list->next = new_node;
+	return new_node->index;
 }
 
 int display_item(linked_list *list)
