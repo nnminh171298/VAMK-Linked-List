@@ -10,7 +10,7 @@ TEST(EMPTY, empty_1_NULL)
 	linked_list *node_0 = nullptr;
 	int result = empty_list(node_0);
 	
-	EXPECT_EQ(-1, result);
+	EXPECT_EQ(0, result);
 }
 
 TEST(EMPTY, empty_2_one)
@@ -288,7 +288,7 @@ TEST(SORT, sort_6_same_data)
 TEST(STATUS, status_1_NULL)
 {
 	int result = linkedlist_status(nullptr);
-	EXPECT_EQ(-1, result);
+	EXPECT_EQ(0, result);
 }
 
 TEST(STATUS, status_2_one)

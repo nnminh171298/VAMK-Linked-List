@@ -155,7 +155,21 @@ int delete_from_list(linked_list *list, int index)
 
 int empty_list(linked_list *list)
 {
+	if(list == nullptr)
+		return 0;
 	
+	int count = 0;
+	linked_list *next = nullptr;
+	while(true)
+	{
+		next = list->next;
+		free(list->data);
+		free(list);
+		count++;
+		if(next == nullptr)
+			return count;
+		list = next;
+	}
 }
 
 int swap_items(linked_list *node_1, linked_list *node_2)
