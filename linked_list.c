@@ -172,13 +172,6 @@ int empty_list(linked_list *list)
 	}
 }
 
-void print(linked_list *node)
-{
-	printf("Index: %d; ", node->index);
-	print_data(node->data);
-	printf("; Next: %p\n", (void *) node->next);
-}
-
 int swap_items(linked_list *node_1, linked_list *node_2)
 {
 	if(node_1 == nullptr || node_2 == nullptr)
