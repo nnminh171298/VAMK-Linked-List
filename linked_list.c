@@ -13,23 +13,36 @@ void print_data(char *data)
 		printf("<null>");
 }
 
+bool isCircular(linked_list *list)
+{
+	linked_list *nodes[100];
+	int count = 0;
+	while(true)
+	{
+		for(int i=0; i<count; i++)
+			if(nodes[i] == list)
+				return true;
+		if(list->next == nullptr)
+			return false;
+		list = list->next;
+		count++;
+	}
+}
+
 //----------------------Functions----------------------------------------------
 
 int add_to_list(linked_list *list, char *string)
 {
 	// cannot replace NULL list with new node
 	// need (linked_list **list)
-	if(list == nullptr || string == nullptr)
+	if(list == nullptr || string == nullptr || isCircular(list))
 		return -1;
 	
 	// find tail
-	auto head = list;
 	int last_index = list->index;
 	while(list->next != nullptr)
 	{
 		list = list->next;
-		if(list == head)
-			return -1;
 		last_index = list->index;
 	}
 	if(last_index == 0x7FFF'FFFF)
@@ -69,10 +82,9 @@ int display_item(linked_list *list)
 
 int display_list(linked_list *list)
 {
-	if(list == nullptr)
+	if(list == nullptr || isCircular(list))
 		return -1;
 	
-	auto head = list;
 	int count = 1;
 	printf("Display list: ");
 	print_data(list->data);
@@ -82,11 +94,6 @@ int display_list(linked_list *list)
 		list = list->next;
 		if(list != nullptr)
 		{
-			if(list == head)
-			{
-				printf("\n");
-				return -1;
-			}
 			printf(" - ");
 			print_data(list->data);
 			count++;
@@ -100,7 +107,8 @@ int display_list(linked_list *list)
 
 linked_list *search_from_list(linked_list *list, char *string)
 {
-	auto head = list;
+	if(list == nullptr || isCircular(list))
+		return nullptr;
 	
 	if(string == nullptr)
 	{
@@ -109,8 +117,6 @@ linked_list *search_from_list(linked_list *list, char *string)
 			if(list->data == nullptr)
 				return list;
 			list = list->next;
-			if(list == head)
-				break;
 		}
 		return nullptr;
 	}
@@ -121,15 +127,13 @@ linked_list *search_from_list(linked_list *list, char *string)
 			if(strcmp(string, list->data) == 0)
 				return list;
 		list = list->next;
-		if(list == head)
-			break;
 	}
 	return nullptr;
 }
 
 int delete_from_list(linked_list *list, int index)
 {
-	if(list == nullptr)
+	if(list == nullptr || isCircular(list))
 		return -1;
 	
 	auto head = list;
@@ -150,8 +154,6 @@ int delete_from_list(linked_list *list, int index)
 		}
 		prev = list;
 		list = list->next;
-		if(list == head)
-			return -1;
 	}
 	
 	// more specification needed
