@@ -174,7 +174,7 @@ int delete_from_list(linked_list *list, int index)
 
 int empty_list(linked_list *list)
 {
-	if(list == nullptr)
+	if(list == nullptr || isCircular(list))
 		return 0;
 	
 	int count = 0;

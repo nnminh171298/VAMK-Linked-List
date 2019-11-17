@@ -37,16 +37,24 @@ TEST(EMPTY, empty_4_loop)
 {
 	linked_list *node_0 = generateNode(0, 0);
 	linked_list *node_1 = generateNode(1, 1);
+	linked_list *node_2 = generateNode(2, 2);
+	linked_list *node_3 = generateNode(3, 3);
 	linkNodes(&node_0, &node_1);
-	linkNodes(&node_1, &node_0);
+	linkNodes(&node_1, &node_2);
+	linkNodes(&node_2, &node_3);
+	linkNodes(&node_3, &node_1);
 	auto result = empty_list(node_0);
 	
-	EXPECT_EQ(-1, result);
+	EXPECT_EQ(0, result);
 	EXPECT_TRUE(checkNode(node_0, 0, "Data 0", node_1));
-	EXPECT_TRUE(checkNode(node_1, 1, "Data 1", node_0));
+	EXPECT_TRUE(checkNode(node_1, 1, "Data 1", node_2));
+	EXPECT_TRUE(checkNode(node_2, 2, "Data 2", node_3));
+	EXPECT_TRUE(checkNode(node_3, 3, "Data 3", node_1));
 	
 	freeNode(node_0);
 	freeNode(node_1);
+	freeNode(node_2);
+	freeNode(node_3);
 }
 
 //----------------------Swap-items---------------------------------------------
