@@ -167,17 +167,25 @@ TEST(ADD, add_7_loop)
 {
 	linked_list *node_0 = generateNode(0, 0);
 	linked_list *node_1 = generateNode(1, 1);
+	linked_list *node_2 = generateNode(2, 2);
+	linked_list *node_3 = generateNode(3, 3);
 	linkNodes(&node_0, &node_1);
-	linkNodes(&node_1, &node_0);
-	char *data = const_cast<char *>("Data 2");
+	linkNodes(&node_1, &node_2);
+	linkNodes(&node_2, &node_3);
+	linkNodes(&node_3, &node_1);
+	char *data = const_cast<char *>("Data 4");
 	int result = add_to_list(node_0, data);
 	
 	EXPECT_EQ(-1, result);
 	EXPECT_TRUE(checkNode(node_0, 0, "Data 0", node_1));
-	EXPECT_TRUE(checkNode(node_1, 1, "Data 1", node_0));
+	EXPECT_TRUE(checkNode(node_1, 1, "Data 1", node_2));
+	EXPECT_TRUE(checkNode(node_2, 2, "Data 2", node_3));
+	EXPECT_TRUE(checkNode(node_3, 3, "Data 3", node_1));
 	
 	freeNode(node_0);
 	freeNode(node_1);
+	freeNode(node_2);
+	freeNode(node_3);
 }
 
 //----------------------Display-item-------------------------------------------
@@ -351,16 +359,24 @@ TEST(DISP_LIST, disp_list_6_loop)
 {
 	linked_list *node_0 = generateNode(0, 0);
 	linked_list *node_1 = generateNode(1, 1);
+	linked_list *node_2 = generateNode(2, 2);
+	linked_list *node_3 = generateNode(3, 3);
 	linkNodes(&node_0, &node_1);
-	linkNodes(&node_1, &node_0);
+	linkNodes(&node_1, &node_2);
+	linkNodes(&node_2, &node_3);
+	linkNodes(&node_3, &node_1);
 	int result = display_list(node_0);
 	
 	EXPECT_EQ(-1, result);
 	EXPECT_TRUE(checkNode(node_0, 0, "Data 0", node_1));
-	EXPECT_TRUE(checkNode(node_1, 1, "Data 1", node_0));
+	EXPECT_TRUE(checkNode(node_1, 1, "Data 1", node_2));
+	EXPECT_TRUE(checkNode(node_2, 2, "Data 2", node_3));
+	EXPECT_TRUE(checkNode(node_3, 3, "Data 3", node_1));
 	
 	freeNode(node_0);
 	freeNode(node_1);
+	freeNode(node_2);
+	freeNode(node_3);
 }
 
 //----------------------Search-from-list---------------------------------------
@@ -463,16 +479,24 @@ TEST(SEARCH, search_6_loop)
 {
 	linked_list *node_0 = generateNode(0, 0);
 	linked_list *node_1 = generateNode(1, 1);
+	linked_list *node_2 = generateNode(2, 2);
+	linked_list *node_3 = generateNode(3, 3);
 	linkNodes(&node_0, &node_1);
-	linkNodes(&node_1, &node_0);
+	linkNodes(&node_1, &node_2);
+	linkNodes(&node_2, &node_3);
+	linkNodes(&node_3, &node_1);
 	auto result = search_from_list(node_0, const_cast<char *>("Something strange"));
 	
 	EXPECT_EQ(nullptr, result);
 	EXPECT_TRUE(checkNode(node_0, 0, "Data 0", node_1));
-	EXPECT_TRUE(checkNode(node_1, 1, "Data 1", node_0));
+	EXPECT_TRUE(checkNode(node_1, 1, "Data 1", node_2));
+	EXPECT_TRUE(checkNode(node_2, 2, "Data 2", node_3));
+	EXPECT_TRUE(checkNode(node_3, 3, "Data 3", node_1));
 	
 	freeNode(node_0);
 	freeNode(node_1);
+	freeNode(node_2);
+	freeNode(node_3);
 }
 
 //----------------------Delete-from-list---------------------------------------
@@ -567,14 +591,22 @@ TEST(DELETE, delete_7_loop)
 {
 	linked_list *node_0 = generateNode(0, 0);
 	linked_list *node_1 = generateNode(1, 1);
+	linked_list *node_2 = generateNode(2, 2);
+	linked_list *node_3 = generateNode(3, 3);
 	linkNodes(&node_0, &node_1);
-	linkNodes(&node_1, &node_0);
-	auto result = delete_from_list(node_0, 2);
+	linkNodes(&node_1, &node_2);
+	linkNodes(&node_2, &node_3);
+	linkNodes(&node_3, &node_1);
+	auto result = delete_from_list(node_0, 5);
 	
 	EXPECT_EQ(-1, result);
 	EXPECT_TRUE(checkNode(node_0, 0, "Data 0", node_1));
-	EXPECT_TRUE(checkNode(node_1, 1, "Data 1", node_0));
+	EXPECT_TRUE(checkNode(node_1, 1, "Data 1", node_2));
+	EXPECT_TRUE(checkNode(node_2, 2, "Data 2", node_3));
+	EXPECT_TRUE(checkNode(node_3, 3, "Data 3", node_1));
 	
 	freeNode(node_0);
 	freeNode(node_1);
+	freeNode(node_2);
+	freeNode(node_3);
 }
