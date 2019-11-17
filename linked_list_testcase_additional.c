@@ -33,6 +33,22 @@ TEST(EMPTY, empty_3_many)
 	EXPECT_EQ(3, result);
 }
 
+TEST(EMPTY, empty_4_loop)
+{
+	linked_list *node_0 = generateNode(0, 0);
+	linked_list *node_1 = generateNode(1, 1);
+	linkNodes(&node_0, &node_1);
+	linkNodes(&node_1, &node_0);
+	auto result = empty_list(node_0);
+	
+	EXPECT_EQ(-1, result);
+	EXPECT_TRUE(checkNode(node_0, 0, "Data 0", node_1));
+	EXPECT_TRUE(checkNode(node_1, 1, "Data 1", node_0));
+	
+	freeNode(node_0);
+	freeNode(node_1);
+}
+
 //----------------------Swap-items---------------------------------------------
 
 TEST(SWAP, swap_1_NULL_first)
