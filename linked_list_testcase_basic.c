@@ -1,9 +1,44 @@
 #include <gtest/gtest.h>
-
 #include <cstdio>
-
-#include "helper.h"
+#include <cstring>
 #include "linked_list.h"
+
+//----------------------Helpers------------------------------------------------
+
+linked_list *generateNode(int index, int data)
+{
+	char *data_ptr = (char *) malloc(sizeof(char) * 20);
+	sprintf(data_ptr, "Data %d", data);
+	
+	linked_list *new_node = (linked_list *) malloc(sizeof(linked_list));
+	new_node->data = data_ptr;
+	new_node->index = index;
+	new_node->next = nullptr;
+	
+	return new_node;
+}
+
+void freeNode(linked_list *node)
+{
+	free(node->data);
+	free(node);
+}
+
+bool checkNode(linked_list *node, int index, char const *data, linked_list *next)
+{
+	bool data_compare = false;
+	if(node->data == nullptr && data == nullptr)
+		data_compare = true;
+	else if(node->data != nullptr && data != nullptr)
+		data_compare = (strcmp(data, node->data) == 0);
+
+	return (node->index == index) && (node->next == next) && data_compare;
+}
+
+void linkNodes(linked_list **prev_node, linked_list **next_node)
+{
+	(*prev_node)->next = *next_node;
+}
 
 //----------------------Add----------------------------------------------------
 
@@ -126,6 +161,23 @@ TEST(ADD, add_6_out_of_index)
 	
 	freeNode(node_0);
 	freeNode(node_max);
+}
+
+TEST(ADD, add_7_loop)
+{
+	linked_list *node_0 = generateNode(0, 0);
+	linked_list *node_1 = generateNode(1, 1);
+	linkNodes(&node_0, &node_1);
+	linkNodes(&node_1, &node_0);
+	char *data = const_cast<char *>("Data 2");
+	int result = add_to_list(node_0, data);
+	
+	EXPECT_EQ(-1, result);
+	EXPECT_TRUE(checkNode(node_0, 0, "Data 0", node_1));
+	EXPECT_TRUE(checkNode(node_1, 1, "Data 1", node_0));
+	
+	freeNode(node_0);
+	freeNode(node_1);
 }
 
 //----------------------Display-item-------------------------------------------
@@ -295,6 +347,22 @@ TEST(DISP_LIST, disp_list_5_NULL_string_mid)
 	freeNode(node_2);
 }
 
+TEST(DISP_LIST, disp_list_6_loop)
+{
+	linked_list *node_0 = generateNode(0, 0);
+	linked_list *node_1 = generateNode(1, 1);
+	linkNodes(&node_0, &node_1);
+	linkNodes(&node_1, &node_0);
+	int result = display_list(node_0);
+	
+	EXPECT_EQ(-1, result);
+	EXPECT_TRUE(checkNode(node_0, 0, "Data 0", node_1));
+	EXPECT_TRUE(checkNode(node_1, 1, "Data 1", node_0));
+	
+	freeNode(node_0);
+	freeNode(node_1);
+}
+
 //----------------------Search-from-list---------------------------------------
 
 TEST(SEARCH, search_1_empty)
@@ -391,6 +459,22 @@ TEST(SEARCH, search_5_not_found)
 	freeNode(node_2);
 }
 
+TEST(SEARCH, search_6_loop)
+{
+	linked_list *node_0 = generateNode(0, 0);
+	linked_list *node_1 = generateNode(1, 1);
+	linkNodes(&node_0, &node_1);
+	linkNodes(&node_1, &node_0);
+	auto result = search_from_list(node_0, const_cast<char *>("Something strange"));
+	
+	EXPECT_EQ(nullptr, result);
+	EXPECT_TRUE(checkNode(node_0, 0, "Data 0", node_1));
+	EXPECT_TRUE(checkNode(node_1, 1, "Data 1", node_0));
+	
+	freeNode(node_0);
+	freeNode(node_1);
+}
+
 //----------------------Delete-from-list---------------------------------------
 
 TEST(DELETE, delete_1_empty)
@@ -477,4 +561,20 @@ TEST(DELETE, delete_6_only)
 	auto result = delete_from_list(node_0, 0);
 	
 	EXPECT_EQ(0, result);
+}
+
+TEST(DELETE, delete_7_loop)
+{
+	linked_list *node_0 = generateNode(0, 0);
+	linked_list *node_1 = generateNode(1, 1);
+	linkNodes(&node_0, &node_1);
+	linkNodes(&node_1, &node_0);
+	auto result = delete_from_list(node_0, 2);
+	
+	EXPECT_EQ(-1, result);
+	EXPECT_TRUE(checkNode(node_0, 0, "Data 0", node_1));
+	EXPECT_TRUE(checkNode(node_1, 1, "Data 1", node_0));
+	
+	freeNode(node_0);
+	freeNode(node_1);
 }

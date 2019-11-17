@@ -23,10 +23,13 @@ int add_to_list(linked_list *list, char *string)
 		return -1;
 	
 	// find tail
+	auto head = list;
 	int last_index = list->index;
 	while(list->next != nullptr)
 	{
 		list = list->next;
+		if(list == head)
+			return -1;
 		last_index = list->index;
 	}
 	if(last_index == 0x7FFF'FFFF)
@@ -69,6 +72,7 @@ int display_list(linked_list *list)
 	if(list == nullptr)
 		return -1;
 	
+	auto head = list;
 	int count = 1;
 	printf("Display list: ");
 	print_data(list->data);
@@ -78,6 +82,11 @@ int display_list(linked_list *list)
 		list = list->next;
 		if(list != nullptr)
 		{
+			if(list == head)
+			{
+				printf("\n");
+				return -1;
+			}
 			printf(" - ");
 			print_data(list->data);
 			count++;
@@ -91,6 +100,8 @@ int display_list(linked_list *list)
 
 linked_list *search_from_list(linked_list *list, char *string)
 {
+	auto head = list;
+	
 	if(string == nullptr)
 	{
 		while(list != nullptr)
@@ -98,6 +109,8 @@ linked_list *search_from_list(linked_list *list, char *string)
 			if(list->data == nullptr)
 				return list;
 			list = list->next;
+			if(list == head)
+				break;
 		}
 		return nullptr;
 	}
@@ -108,6 +121,8 @@ linked_list *search_from_list(linked_list *list, char *string)
 			if(strcmp(string, list->data) == 0)
 				return list;
 		list = list->next;
+		if(list == head)
+			break;
 	}
 	return nullptr;
 }
@@ -128,13 +143,15 @@ int delete_from_list(linked_list *list, int index)
 			if(prev != nullptr)
 				prev->next = list->next;
 			else
-				head = list->next;
+				head = list->next; // delete first, get new head
 			free(list->data); // nullptr still OK
 			free(list);
 			break;
 		}
 		prev = list;
 		list = list->next;
+		if(list == head)
+			return -1;
 	}
 	
 	// more specification needed
@@ -199,4 +216,3 @@ int linkedlist_status(linked_list *list)
 {
 	
 }
-
