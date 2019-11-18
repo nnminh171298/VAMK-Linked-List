@@ -29,6 +29,19 @@ bool isCircular(linked_list *list)
 	}
 }
 
+// return true if node_1 after node_2, false otherwise
+bool linked_list_data_compare(linked_list *node_1, linked_list *node_2)
+{
+	if(node_1->data == nullptr && node_2->data == nullptr)
+		return false;
+	if(node_1->data == nullptr)
+		return false;
+	if(node_2->data == nullptr)
+		return true;
+	
+	return (strcmp(node_1->data, node_2->data) > 0);
+}
+
 //----------------------Basic--------------------------------------------------
 
 int add_to_list(linked_list *list, char *string)
@@ -211,7 +224,31 @@ int swap_items(linked_list *node_1, linked_list *node_2)
 
 int sort_list(linked_list *list)
 {
+	int count = linkedlist_status(list);
+	if(count <= 0)
+		return -1;
 	
+	auto head = list;
+	
+	// optimized bubble sort
+	int unsorted_count = count;
+	while(unsorted_count > 1)
+	{
+		int last_swap_pos = 0;
+		for(int i=0; i<unsorted_count-1; i++)
+		{
+			if(linked_list_data_compare(list, list->next))
+			{
+				swap_items(list, list->next);
+				last_swap_pos = i;
+			}
+			list = list->next;
+		}
+		unsorted_count = last_swap_pos + 1;
+		list = head;
+	}
+	
+	return 0;
 }
 
 int linkedlist_status(linked_list *list)
