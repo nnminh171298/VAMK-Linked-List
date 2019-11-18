@@ -216,5 +216,16 @@ int sort_list(linked_list *list)
 
 int linkedlist_status(linked_list *list)
 {
+	if(list == nullptr)
+		return 0;
+	if(isCircular(list))
+		return -1;
 	
+	int count = 0;
+	while(list != nullptr)
+	{
+		count++;
+		list = list->next;
+	}
+	return count;
 }
