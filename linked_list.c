@@ -13,9 +13,10 @@ void print_data(char *data)
 		printf("<null>");
 }
 
+// assume not null
 bool isCircular(linked_list *list)
 {
-	linked_list *nodes[100];
+	linked_list *nodes[1000];
 	int count = 0;
 	while(true)
 	{
@@ -24,8 +25,38 @@ bool isCircular(linked_list *list)
 				return true;
 		if(list->next == nullptr)
 			return false;
+		nodes[count] = list;
 		list = list->next;
 		count++;
+	}
+}
+
+// assume not circular and not null
+bool isStringOverlap(linked_list *head, linked_list *node)
+{
+	char *strings[1000];
+	int lengths[1000];
+	int count = 0;
+	while(true)
+	{
+		if(head->data == nullptr)
+			continue;
+		
+		// compare ending 
+		for(int i=0; i<count; i++)
+			if(node->data + strlen(node->data) == strings[i] + lengths[i])
+				return true;
+		
+		if(head->next == nullptr)
+			return false;
+		
+		if(node != head)
+		{
+			strings[count] = head->data;
+			lengths[count] = strlen(head->data);
+			count++;
+		}
+		head = head->next;
 	}
 }
 
@@ -157,8 +188,10 @@ int delete_from_list(linked_list *list, int index)
 			return -1;
 		if(list->index == index)
 		{
+			if(isStringOverlap(head, list))
+				return -1;
 			if(prev != nullptr)
-				prev->next = list->next;
+				prev->next = list->next; // update A-B-C to A-C
 			else
 				head = list->next; // delete first, get new head
 			free(list->data); // nullptr still OK

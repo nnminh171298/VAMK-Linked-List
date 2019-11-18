@@ -575,3 +575,28 @@ TEST(DELETE, delete_7_loop)
 	freeNode(node_2);
 	freeNode(node_3);
 }
+
+TEST(DELETE, delete_8_overlap_string)
+{
+	linked_list *node_0 = generateNode(0, 0);
+	linked_list *node_1 = generateNode(1, 1);
+	linked_list *node_2 = generateNode(2, 2);
+	linkNodes(&node_0, &node_1);
+	linkNodes(&node_1, &node_2);
+	
+	auto saved_string = node_1->data;
+	node_1->data = (node_0->data + 1);
+	
+	// crash and burn!!!
+	auto result_delete_1 = delete_from_list(node_0, 1);
+	auto result_delete_0 = delete_from_list(node_0, 0);
+	EXPECT_EQ(-1, result_delete_1);
+	EXPECT_EQ(-1, result_delete_0);
+	
+	auto result_delete_2 = delete_from_list(node_0, 2);
+	EXPECT_EQ(2, result_delete_2);
+	
+	node_1->data = saved_string;
+	freeNode(node_0);
+	freeNode(node_1);
+}
