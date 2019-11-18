@@ -308,6 +308,30 @@ TEST(SORT, sort_6_same_data)
 	freeNode(node_2);
 }
 
+TEST(SORT, sort_7_loop)
+{
+	linked_list *node_0 = generateNode(0, 3);
+	linked_list *node_1 = generateNode(1, 2);
+	linked_list *node_2 = generateNode(2, 1);
+	linked_list *node_3 = generateNode(3, 0);
+	linkNodes(&node_0, &node_1);
+	linkNodes(&node_1, &node_2);
+	linkNodes(&node_2, &node_3);
+	linkNodes(&node_3, &node_1);
+	auto result = sort_list(node_0);
+	
+	EXPECT_EQ(-1, result);
+	EXPECT_TRUE(checkNode(node_0, 0, "Data 3", node_1));
+	EXPECT_TRUE(checkNode(node_1, 1, "Data 2", node_2));
+	EXPECT_TRUE(checkNode(node_2, 2, "Data 1", node_3));
+	EXPECT_TRUE(checkNode(node_3, 3, "Data 0", node_1));
+	
+	freeNode(node_0);
+	freeNode(node_1);
+	freeNode(node_2);
+	freeNode(node_3);
+}
+
 //----------------------Status-------------------------------------------------
 
 TEST(STATUS, status_1_NULL)
@@ -344,4 +368,28 @@ TEST(STATUS, status_3_many)
 	freeNode(node_0);
 	freeNode(node_1);
 	freeNode(node_2);
+}
+
+TEST(STATUS, status_4_loop)
+{
+	linked_list *node_0 = generateNode(0, 3);
+	linked_list *node_1 = generateNode(1, 2);
+	linked_list *node_2 = generateNode(2, 1);
+	linked_list *node_3 = generateNode(3, 0);
+	linkNodes(&node_0, &node_1);
+	linkNodes(&node_1, &node_2);
+	linkNodes(&node_2, &node_3);
+	linkNodes(&node_3, &node_1);
+	auto result = linkedlist_status(node_0);
+	
+	EXPECT_EQ(-1, result);
+	EXPECT_TRUE(checkNode(node_0, 0, "Data 3", node_1));
+	EXPECT_TRUE(checkNode(node_1, 1, "Data 2", node_2));
+	EXPECT_TRUE(checkNode(node_2, 2, "Data 1", node_3));
+	EXPECT_TRUE(checkNode(node_3, 3, "Data 0", node_1));
+	
+	freeNode(node_0);
+	freeNode(node_1);
+	freeNode(node_2);
+	freeNode(node_3);
 }
