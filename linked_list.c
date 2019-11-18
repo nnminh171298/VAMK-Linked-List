@@ -223,14 +223,22 @@ int empty_list(linked_list *list)
 	if(list == nullptr || isCircular(list))
 		return 0;
 	
+	auto head = list;
 	int count = 0;
 	linked_list *next = nullptr;
 	while(true)
 	{
 		next = list->next;
+		if(isStringOverlap(head, list))
+			goto DELETE_NEXT;
+		
+		if(list == head)
+			head = next;
 		free(list->data);
 		free(list);
 		count++;
+	
+	DELETE_NEXT:
 		if(next == nullptr)
 			return count;
 		list = next;
