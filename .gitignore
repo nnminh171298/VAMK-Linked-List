@@ -8,3 +8,4 @@ main
 *.o
 *.a
 .travis.yml
+README.md
