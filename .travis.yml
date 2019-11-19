@@ -9,7 +9,7 @@ before_script:
   # Exports
   - git clone https://github.com/google/googletest.git
   - pwd
-  - export GIT_DIR=test-travis
+  - export GIT_DIR=VAMK-Linked-List
   - export GTEST_DIR=/home/travis/build/nnminh171298/${GIT_DIR}/googletest/googletest
   - make
 
