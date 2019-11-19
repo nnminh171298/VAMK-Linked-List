@@ -2,21 +2,28 @@ language: c
 compiler:
   - gcc
 os: linux
-dist: trusty
+dist: bionic
 
 before_script:
-    - make test
+  - gcc -v && g++ -v
+  # Exports
+  - git clone https://github.com/google/googletest.git
+  - pwd
+  - export GIT_DIR=test-travis
+  - export GTEST_DIR=/home/travis/build/nnminh171298/${GIT_DIR}/googletest/googletest
+  - make
+
 script:
-    - ./my_test
+  - ./my_test
+
 branches:
   only:
     - master
     - additional
+
 notifications:
   recipients:
-    - nnminh171298@gmail.fi
+    - nnminh171298@gmail.com
   email:
     on_success: always
     on_failure: change
-rvm:
-  - 9.00

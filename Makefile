@@ -1,7 +1,8 @@
-GTEST_DIR=~/googletest/googletest
+ifndef GTEST_DIR
+	export GTEST_DIR=~/googletest/googletest
+endif
 PROJ=linked_list
 TEST_CASE=linked_list_testcase
-#TEST_CASE=student_test
 COPTS=-fprofile-arcs -ftest-coverage
 LDFLAGS=-fprofile-arcs -ftest-coverage
 
@@ -44,4 +45,4 @@ report:
 	lcov -c -d . -o .coverage.run
 	lcov -d . -a .coverage.base -a .coverage.run -o .coverage.total
 	genhtml --no-branch-coverage -o $(COV_OUTPUT) .coverage.total
-	rm -f .coverage.base .coverage.run .coverage.tota
+	rm -f .coverage.base .coverage.run .coverage.total
