@@ -1,4 +1,6 @@
-GTEST_DIR=~/googletest/googletest
+ifndef GTEST_DIR
+	export GTEST_DIR=~/googletest/googletest
+endif
 PROJ=linked_list
 TEST_CASE_BASIC=linked_list_testcase_basic
 TEST_CASE_ADDITIONAL=linked_list_testcase_additional
@@ -27,10 +29,10 @@ $(PROJ)_test.o: $(PROJ).c $(PROJ).h
 
 $(TEST_CASE_BASIC).o: $(TEST_CASE_BASIC).c
 	g++ -c -isystem $(GTEST_DIR)/include -I$(GTEST_DIR)  $(TEST_CASE_BASIC).c
-	
+
 $(TEST_CASE_ADDITIONAL).o: $(TEST_CASE_ADDITIONAL).c
 	g++ -c -isystem $(GTEST_DIR)/include -I$(GTEST_DIR)  $(TEST_CASE_ADDITIONAL).c
-	
+
 $(HELPER).o: $(HELPER).c
 	g++ -c $(HELPER).c
 ##### Normal #######################
@@ -51,4 +53,4 @@ report:
 	lcov -c -d . -o .coverage.run
 	lcov -d . -a .coverage.base -a .coverage.run -o .coverage.total
 	genhtml --no-branch-coverage -o $(COV_OUTPUT) .coverage.total
-	rm -f .coverage.base .coverage.run .coverage.tota
+	rm -f .coverage.base .coverage.run .coverage.total

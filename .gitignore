@@ -6,3 +6,4 @@
 my_test
 main
 *.o
+*.a

@@ -2,31 +2,28 @@ language: c
 compiler:
   - gcc
 os: linux
-dist: trusty
-before_install:
- - sudo apt-get -qq update
- - git clone https://github.com/google/googletest.git
- - sudo apt-get install -y valgrind
- - cd /usr/src/gtest
- - sudo cmake .
- - sudo make
- - sudo mv libg* /usr/lib/
- - which valgrind
- - cd "${TRAVIS_BUILD_DIR}"
+dist: bionic
 
 before_script:
-    - make test
+  - gcc -v && g++ -v
+  # Exports
+  - git clone https://github.com/google/googletest.git
+  - pwd
+  - export GIT_DIR=VAMK-Linked-List
+  - export GTEST_DIR=/home/travis/build/nnminh171298/${GIT_DIR}/googletest/googletest
+  - make
+
 script:
-    - ./my_test
+  - ./my_test
+
 branches:
   only:
     - master
     - additional
+
 notifications:
   recipients:
-    - nnminh171298@gmail.fi
+    - nnminh171298@gmail.com
   email:
     on_success: always
     on_failure: change
-rvm:
-  - 9.00
