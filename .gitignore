@@ -7,3 +7,4 @@ my_test
 main
 *.o
 *.a
+.travis.yml
