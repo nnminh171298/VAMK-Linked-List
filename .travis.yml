@@ -3,16 +3,6 @@ compiler:
   - gcc
 os: linux
 dist: trusty
-before_install:
- - sudo apt-get -qq update
- - git clone https://github.com/google/googletest.git
- - sudo apt-get install -y valgrind
- - cd /usr/src/gtest
- - sudo cmake .
- - sudo make
- - sudo mv libg* /usr/lib/
- - which valgrind
- - cd "${TRAVIS_BUILD_DIR}"
 
 before_script:
     - make test
