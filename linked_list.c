@@ -202,18 +202,26 @@ int delete_from_list(linked_list *list, int index)
 		list = list->next;
 	}
 	
-	// more specification needed
-	// should the index start from 0?
-	// or just decrement everything after the deleted node?
-	int new_index = 0;
-	list = head;
-	while(list != nullptr)
+	if(head == nullptr)
+		return 0;
+	
+	// get the first item to reorder
+	if(prev == nullptr)
+		list = head;
+	else if(prev->next != nullptr)
+		list = prev->next;
+	else
+		return prev->index + 1;
+	
+	while(true)
 	{
-		list->index = new_index++;
+		list->index--;
+		if(list->next == nullptr)
+			break;
 		list = list->next;
 	}
 	
-	return new_index;
+	return list->index + 1;
 }
 
 //----------------------Additional---------------------------------------------
