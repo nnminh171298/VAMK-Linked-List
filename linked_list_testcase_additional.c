@@ -10,7 +10,7 @@ TEST(EMPTY, empty_1_NULL)
 	linked_list *node_0 = nullptr;
 	int result = empty_list(node_0);
 	
-	EXPECT_EQ(0, result);
+	EXPECT_EQ(-1, result);
 }
 
 TEST(EMPTY, empty_2_one)
@@ -45,7 +45,7 @@ TEST(EMPTY, empty_4_loop)
 	linkNodes(&node_3, &node_1);
 	auto result = empty_list(node_0);
 	
-	EXPECT_EQ(0, result);
+	EXPECT_EQ(-1, result);
 	EXPECT_TRUE(checkNode(node_0, 0, "Data 0", node_1));
 	EXPECT_TRUE(checkNode(node_1, 1, "Data 1", node_2));
 	EXPECT_TRUE(checkNode(node_2, 2, "Data 2", node_3));
@@ -358,7 +358,7 @@ TEST(SORT, sort_7_loop)
 TEST(STATUS, status_1_NULL)
 {
 	int result = linkedlist_status(nullptr);
-	EXPECT_EQ(0, result);
+	EXPECT_EQ(-1, result);
 }
 
 TEST(STATUS, status_2_one)

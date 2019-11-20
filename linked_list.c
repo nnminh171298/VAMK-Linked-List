@@ -229,7 +229,7 @@ int delete_from_list(linked_list *list, int index)
 int empty_list(linked_list *list)
 {
 	if(list == nullptr || isCircular(list))
-		return 0;
+		return -1;
 	
 	auto head = list;
 	int count = 0;
@@ -302,9 +302,7 @@ int sort_list(linked_list *list)
 
 int linkedlist_status(linked_list *list)
 {
-	if(list == nullptr)
-		return 0;
-	if(isCircular(list))
+	if(list == nullptr || isCircular(list))
 		return -1;
 	
 	int count = 0;
