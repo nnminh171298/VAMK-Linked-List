@@ -1,4 +1,4 @@
-[![Build Status](https://api.travis-ci.com/nnminh171298/VAMK-Linked-List.svg?token=MF5xcGDYyi6pXxwn5xNf&branch=master)](https://travis-ci.com/nnminh171298/VAMK-Linked-List) [![Coverage Status](https://coveralls.io/repos/github/nnminh171298/VAMK-Linked-List/badge.svg?branch=master)](https://coveralls.io/github/nnminh171298/VAMK-Linked-List?branch=master)
+[![Build Status](https://travis-ci.com/nnminh171298/VAMK-Linked-List.svg?branch=master)](https://travis-ci.com/nnminh171298/VAMK-Linked-List) [![Coverage Status](https://coveralls.io/repos/github/nnminh171298/VAMK-Linked-List/badge.svg?branch=master)](https://coveralls.io/github/nnminh171298/VAMK-Linked-List?branch=master)
 # VAMK Linked List
 My C implementation of a linked list, made during the course embedded system programming at VAMK
 # Specification
