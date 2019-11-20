@@ -33,3 +33,22 @@ int delete_from_list(linked_list *list, int index);
 * Delete item from a list and free space
 * Rest of list items index will be decremented
 * Return value: -1 on error, otherwise length of remaining list
+```cpp
+int empty_list(linked_list *list);
+```
+* Remove all items from the list and will free allocated memory
+* Return value items deleted from the list
+```cpp
+int swap_items(linked_list *node_1, linked_list *node_2);
+```
+* Swap order of two items
+* Return 0 if OK, -1 if either items was not in the list (content of the list did not change)
+```cpp
+int sort_list(linked_list *list);
+```
+* Sort list in rising order based on the data
+```cpp
+int linkedlist_status(linked_list *list);
+```
+* Will count the number of elements in the list
+* Return value: amount
