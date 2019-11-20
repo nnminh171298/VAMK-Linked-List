@@ -9,3 +9,4 @@ main
 *.a
 .travis.yml
 README.md
+/cov_output

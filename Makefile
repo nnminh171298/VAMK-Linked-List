@@ -7,6 +7,7 @@ TEST_CASE_ADDITIONAL=linked_list_testcase_additional
 HELPER = helper
 COPTS=-fprofile-arcs -ftest-coverage
 LDFLAGS=-fprofile-arcs -ftest-coverage
+COV_OUTPUT=./cov_output
 
 default: test
 
@@ -18,14 +19,14 @@ test: Gtest_main.o $(TEST_CASE_BASIC).o $(TEST_CASE_ADDITIONAL).o $(HELPER).o $(
 
 ######## Googletest Lib ##########
 libgtest.a:
-	g++ -isystem $(GTEST_DIR)/include -I$(GTEST_DIR) -pthread -c $(GTEST_DIR)/src/gtest-all.cc
+	g++ -isystem $(GTEST_DIR)/include -I $(GTEST_DIR) -pthread -c $(GTEST_DIR)/src/gtest-all.cc
 	ar -rv libgtest.a gtest-all.o
 ##### Test ###############
 Gtest_main.o: Gtest_main.c
-	g++ -c -isystem $(GTEST_DIR)/include $(COPTS) -I$(GTEST_DIR) Gtest_main.c
+	g++ -c -isystem $(GTEST_DIR)/include $(COPTS) -I $(GTEST_DIR) Gtest_main.c
 
 $(PROJ)_test.o: $(PROJ).c $(PROJ).h
-	g++ -c -isystem $(GTEST_DIR)/include $(COPTS) -I$(GTEST_DIR) $(PROJ).c -o $(PROJ)_test.o
+	g++ -c -isystem $(GTEST_DIR)/include $(COPTS) -I $(GTEST_DIR) $(PROJ).c -o $(PROJ)_test.o
 
 $(TEST_CASE_BASIC).o: $(TEST_CASE_BASIC).c
 	g++ -c -isystem $(GTEST_DIR)/include -I$(GTEST_DIR)  $(TEST_CASE_BASIC).c
@@ -35,6 +36,7 @@ $(TEST_CASE_ADDITIONAL).o: $(TEST_CASE_ADDITIONAL).c
 
 $(HELPER).o: $(HELPER).c
 	g++ -c $(HELPER).c
+
 ##### Normal #######################
 
 $(PROJ).o: $(PROJ).c $(PROJ).h
@@ -48,7 +50,6 @@ clean:
 	rm -f *.o
 
 report:
-	COV_OUTPUT=./cov_output
 	lcov -c -i -d . -o .coverage.base
 	lcov -c -d . -o .coverage.run
 	lcov -d . -a .coverage.base -a .coverage.run -o .coverage.total
