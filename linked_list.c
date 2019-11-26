@@ -260,13 +260,8 @@ int swap_items(linked_list *node_1, linked_list *node_2)
 		return -1;
 	
 	linked_list temp;
-	temp.index = node_1->index;
 	temp.data = node_1->data;
-	
-	node_1->index = node_2->index;
 	node_1->data = node_2->data;
-	
-	node_2->index = temp.index;
 	node_2->data = temp.data;
 	
 	return 0;

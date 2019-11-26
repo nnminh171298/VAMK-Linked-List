@@ -147,9 +147,9 @@ TEST(SWAP, swap_5_normal)
 	
 	EXPECT_EQ(0, result);
 	EXPECT_TRUE(checkNode(node_0, 0, "Data 0", node_1));
-	EXPECT_TRUE(checkNode(node_1, 3, "Data 3", node_2));
+	EXPECT_TRUE(checkNode(node_1, 1, "Data 3", node_2));
 	EXPECT_TRUE(checkNode(node_2, 2, "Data 2", node_3));
-	EXPECT_TRUE(checkNode(node_3, 1, "Data 1", node_4));
+	EXPECT_TRUE(checkNode(node_3, 3, "Data 1", node_4));
 	EXPECT_TRUE(checkNode(node_4, 4, "Data 4", nullptr));
 	
 	freeNode(node_0);
@@ -175,8 +175,8 @@ TEST(SWAP, swap_6_adjacent)
 	
 	EXPECT_EQ(0, result);
 	EXPECT_TRUE(checkNode(node_0, 0, "Data 0", node_1));
-	EXPECT_TRUE(checkNode(node_1, 2, "Data 2", node_2));
-	EXPECT_TRUE(checkNode(node_2, 1, "Data 1", node_3));
+	EXPECT_TRUE(checkNode(node_1, 1, "Data 2", node_2));
+	EXPECT_TRUE(checkNode(node_2, 2, "Data 1", node_3));
 	EXPECT_TRUE(checkNode(node_3, 3, "Data 3", node_4));
 	EXPECT_TRUE(checkNode(node_4, 4, "Data 4", nullptr));
 	
@@ -201,9 +201,9 @@ TEST(SWAP, swap_7_head)
 	int result = swap_items(node_0, node_2);
 	
 	EXPECT_EQ(0, result);
-	EXPECT_TRUE(checkNode(node_0, 2, "Data 2", node_1));
+	EXPECT_TRUE(checkNode(node_0, 0, "Data 2", node_1));
 	EXPECT_TRUE(checkNode(node_1, 1, "Data 1", node_2));
-	EXPECT_TRUE(checkNode(node_2, 0, "Data 0", node_3));
+	EXPECT_TRUE(checkNode(node_2, 2, "Data 0", node_3));
 	EXPECT_TRUE(checkNode(node_3, 3, "Data 3", node_4));
 	EXPECT_TRUE(checkNode(node_4, 4, "Data 4", nullptr));
 	
@@ -230,9 +230,9 @@ TEST(SWAP, swap_8_tail)
 	EXPECT_EQ(0, result);
 	EXPECT_TRUE(checkNode(node_0, 0, "Data 0", node_1));
 	EXPECT_TRUE(checkNode(node_1, 1, "Data 1", node_2));
-	EXPECT_TRUE(checkNode(node_2, 4, "Data 4", node_3));
+	EXPECT_TRUE(checkNode(node_2, 2, "Data 4", node_3));
 	EXPECT_TRUE(checkNode(node_3, 3, "Data 3", node_4));
-	EXPECT_TRUE(checkNode(node_4, 2, "Data 2", nullptr));
+	EXPECT_TRUE(checkNode(node_4, 4, "Data 2", nullptr));
 	
 	freeNode(node_0);
 	freeNode(node_1);
@@ -262,9 +262,9 @@ TEST(SORT, sort_2_one)
 
 TEST(SORT, sort_3_normal)
 {
-	linked_list *node_0 = generateNode(1, 1);
-	linked_list *node_1 = generateNode(2, 2);
-	linked_list *node_2 = generateNode(0, 0);
+	linked_list *node_0 = generateNode(0, 1);
+	linked_list *node_1 = generateNode(1, 2);
+	linked_list *node_2 = generateNode(2, 0);
 	linkNodes(&node_0, &node_1);
 	linkNodes(&node_1, &node_2);
 	int result = sort_list(node_0);
@@ -281,8 +281,8 @@ TEST(SORT, sort_3_normal)
 
 TEST(SORT, sort_4_different_data)
 {
-	linked_list *node_0 = generateNodeWithData(1, "My-name-is-Doof");
-	linked_list *node_1 = generateNodeWithData(0, "And-you-do-what-I-said");
+	linked_list *node_0 = generateNodeWithData(0, "My-name-is-Doof");
+	linked_list *node_1 = generateNodeWithData(1, "And-you-do-what-I-said");
 	linked_list *node_2 = generateNodeWithData(2, "Whoop-whoop");
 	linkNodes(&node_0, &node_1);
 	linkNodes(&node_1, &node_2);
@@ -300,9 +300,9 @@ TEST(SORT, sort_4_different_data)
 
 TEST(SORT, sort_5_same_data_different_length)
 {
-	linked_list *node_0 = generateNodeWithData(1, "Noone-loves-yo");
-	linked_list *node_1 = generateNodeWithData(2, "Noone-loves-yogurt");
-	linked_list *node_2 = generateNodeWithData(0, "Noone-loves");
+	linked_list *node_0 = generateNodeWithData(0, "Noone-loves-yo");
+	linked_list *node_1 = generateNodeWithData(1, "Noone-loves-yogurt");
+	linked_list *node_2 = generateNodeWithData(2, "Noone-loves");
 	linkNodes(&node_0, &node_1);
 	linkNodes(&node_1, &node_2);
 	int result = sort_list(node_0);
@@ -319,11 +319,11 @@ TEST(SORT, sort_5_same_data_different_length)
 
 TEST(SORT, sort_6_same_data)
 {
-	linked_list *node_0 = generateNode(4, 4);
-	linked_list *node_1 = generateNode(3, 3);
+	linked_list *node_0 = generateNode(0, 4);
+	linked_list *node_1 = generateNode(1, 3);
 	linked_list *node_2 = generateNode(2, 2); // same "Data 2" here
-	linked_list *node_3 = generateNode(2, 2); // same "Data 2" here
-	linked_list *node_4 = generateNode(0, 0);
+	linked_list *node_3 = generateNode(3, 2); // same "Data 2" here
+	linked_list *node_4 = generateNode(4, 0);
 	linkNodes(&node_0, &node_1);
 	linkNodes(&node_1, &node_2);
 	linkNodes(&node_2, &node_3);
@@ -332,7 +332,7 @@ TEST(SORT, sort_6_same_data)
 	
 	EXPECT_EQ(0, result);
 	EXPECT_TRUE(checkNode(node_0, 0, "Data 0", node_1));
-	EXPECT_TRUE(checkNode(node_1, 2, "Data 2", node_2));
+	EXPECT_TRUE(checkNode(node_1, 1, "Data 2", node_2));
 	EXPECT_TRUE(checkNode(node_2, 2, "Data 2", node_3));
 	EXPECT_TRUE(checkNode(node_3, 3, "Data 3", node_4));
 	EXPECT_TRUE(checkNode(node_4, 4, "Data 4", nullptr));
@@ -346,10 +346,10 @@ TEST(SORT, sort_6_same_data)
 
 TEST(SORT, sort_7_loop)
 {
-	linked_list *node_0 = generateNode(3, 3);
-	linked_list *node_1 = generateNode(2, 2);
-	linked_list *node_2 = generateNode(1, 1);
-	linked_list *node_3 = generateNode(0, 0);
+	linked_list *node_0 = generateNode(0, 3);
+	linked_list *node_1 = generateNode(1, 2);
+	linked_list *node_2 = generateNode(2, 1);
+	linked_list *node_3 = generateNode(3, 0);
 	linkNodes(&node_0, &node_1);
 	linkNodes(&node_1, &node_2);
 	linkNodes(&node_2, &node_3);
@@ -357,10 +357,10 @@ TEST(SORT, sort_7_loop)
 	auto result = sort_list(node_0);
 	
 	EXPECT_EQ(-1, result);
-	EXPECT_TRUE(checkNode(node_0, 3, "Data 3", node_1));
-	EXPECT_TRUE(checkNode(node_1, 2, "Data 2", node_2));
-	EXPECT_TRUE(checkNode(node_2, 1, "Data 1", node_3));
-	EXPECT_TRUE(checkNode(node_3, 0, "Data 0", node_1));
+	EXPECT_TRUE(checkNode(node_0, 0, "Data 3", node_1));
+	EXPECT_TRUE(checkNode(node_1, 1, "Data 2", node_2));
+	EXPECT_TRUE(checkNode(node_2, 2, "Data 1", node_3));
+	EXPECT_TRUE(checkNode(node_3, 3, "Data 0", node_1));
 	
 	freeNode(node_0);
 	freeNode(node_1);
@@ -372,8 +372,8 @@ TEST(SORT, sort_8_NULL_string)
 {
 	linked_list *node_0 = generateNode(0, 0);
 	linked_list *node_1 = generateNode(1, 1);
-	linked_list *node_2 = generateNode(3, 3);
-	linked_list *node_3 = generateNode(2, 2);
+	linked_list *node_2 = generateNode(2, 3);
+	linked_list *node_3 = generateNode(3, 2);
 	linkNodes(&node_0, &node_1);
 	linkNodes(&node_1, &node_2);
 	linkNodes(&node_2, &node_3);
@@ -382,8 +382,8 @@ TEST(SORT, sort_8_NULL_string)
 	int result = sort_list(node_0);
 	
 	EXPECT_EQ(0, result);
-	EXPECT_TRUE(checkNode(node_0, 1, nullptr, node_1));
-	EXPECT_TRUE(checkNode(node_1, 0, "Data 0", node_2));
+	EXPECT_TRUE(checkNode(node_0, 0, nullptr, node_1));
+	EXPECT_TRUE(checkNode(node_1, 1, "Data 0", node_2));
 	EXPECT_TRUE(checkNode(node_2, 2, "Data 2", node_3));
 	EXPECT_TRUE(checkNode(node_3, 3, "Data 3", nullptr));
 	
