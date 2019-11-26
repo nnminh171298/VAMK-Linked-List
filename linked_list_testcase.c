@@ -499,6 +499,47 @@ TEST(SEARCH, search_6_loop)
 	freeNode(node_3);
 }
 
+TEST(SEARCH, search_7_not_found_NULL_string)
+{
+	linked_list *node_0 = generateNode(0, 0);
+	linked_list *node_1 = generateNode(1, 1);
+	linked_list *node_2 = generateNode(2, 2);
+	linkNodes(&node_0, &node_1);
+	linkNodes(&node_1, &node_2);
+	auto result = search_from_list(node_0, nullptr);
+
+	EXPECT_EQ(nullptr, result);
+	EXPECT_TRUE(checkNode(node_0, 0, "Data 0", node_1));
+	EXPECT_TRUE(checkNode(node_1, 1, "Data 1", node_2));
+	EXPECT_TRUE(checkNode(node_2, 2, "Data 2", nullptr));
+
+	freeNode(node_0);
+	freeNode(node_1);
+	freeNode(node_2);
+}
+
+TEST(SEARCH, search_8_NULL_data)
+{
+	linked_list *node_0 = generateNode(0, 0);
+	linked_list *node_1 = generateNode(1, 1);
+	linked_list *node_2 = generateNode(2, 2);
+	linkNodes(&node_0, &node_1);
+	linkNodes(&node_1, &node_2);
+	auto saved_str = node_1->data;
+	node_1->data = nullptr;
+	auto result = search_from_list(node_0, const_cast<char *>("Something strange"));
+
+	EXPECT_EQ(nullptr, result);
+	EXPECT_TRUE(checkNode(node_0, 0, "Data 0", node_1));
+	EXPECT_TRUE(checkNode(node_1, 1, nullptr, node_2));
+	EXPECT_TRUE(checkNode(node_2, 2, "Data 2", nullptr));
+
+	node_1->data = saved_str;
+	freeNode(node_0);
+	freeNode(node_1);
+	freeNode(node_2);
+}
+
 //----------------------Delete-from-list---------------------------------------
 
 TEST(DELETE, delete_1_empty)
@@ -634,4 +675,24 @@ TEST(DELETE, delete_8_overlap_string)
 	node_1->data = saved_string;
 	freeNode(node_0);
 	freeNode(node_1);
+}
+
+TEST(DELETE, delete_9_NULL_string)
+{
+	linked_list *node_0 = generateNode(0, 0);
+	linked_list *node_1 = generateNode(1, 1);
+	linked_list *node_2 = generateNode(2, 2);
+	linkNodes(&node_0, &node_1);
+	linkNodes(&node_1, &node_2);
+
+	free(node_1->data);
+	node_1->data = nullptr;
+
+	auto result_delete_2 = delete_from_list(node_0, 2);
+	EXPECT_EQ(2, result_delete_2);
+	auto result_delete_1 = delete_from_list(node_0, 1);
+	EXPECT_EQ(1, result_delete_1);
+	EXPECT_TRUE(checkNode(node_0, 0, "Data 0", nullptr));
+	
+	freeNode(node_0);
 }

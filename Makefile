@@ -41,8 +41,8 @@ clean:
 	rm -f *.o
 
 report:
-	lcov -c -i -d . -o .coverage.base
-	lcov -c -d . -o .coverage.run
-	lcov -d . -a .coverage.base -a .coverage.run -o .coverage.total
-	genhtml --no-branch-coverage -o $(COV_OUTPUT) .coverage.total
+	lcov -rc lcov_branch_coverage=1 -c -i -d . -o .coverage.base
+	lcov -rc lcov_branch_coverage=1 -c -d . -o .coverage.run
+	lcov -rc lcov_branch_coverage=1 -d . -a .coverage.base -a .coverage.run -o .coverage.total
+	genhtml --branch-coverage -o $(COV_OUTPUT) .coverage.total
 	rm -f .coverage.base .coverage.run .coverage.total
