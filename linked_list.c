@@ -34,6 +34,9 @@ bool isCircular(linked_list *list)
 // assume not circular and not null
 bool isStringOverlap(linked_list *head, linked_list *node)
 {
+	if(node->data == nullptr)
+		return false;
+
 	char *strings[1000];
 	int lengths[1000];
 	int count = 0;

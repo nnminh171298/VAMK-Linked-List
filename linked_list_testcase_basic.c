@@ -641,3 +641,23 @@ TEST(DELETE, delete_8_overlap_string)
 	freeNode(node_0);
 	freeNode(node_1);
 }
+
+TEST(DELETE, delete_9_NULL_string)
+{
+	linked_list *node_0 = generateNode(0, 0);
+	linked_list *node_1 = generateNode(1, 1);
+	linked_list *node_2 = generateNode(2, 2);
+	linkNodes(&node_0, &node_1);
+	linkNodes(&node_1, &node_2);
+
+	free(node_1->data);
+	node_1->data = nullptr;
+
+	auto result_delete_2 = delete_from_list(node_0, 2);
+	EXPECT_EQ(2, result_delete_2);
+	auto result_delete_1 = delete_from_list(node_0, 1);
+	EXPECT_EQ(1, result_delete_1);
+	EXPECT_TRUE(checkNode(node_0, 0, "Data 0", nullptr));
+
+	freeNode(node_0);
+}
