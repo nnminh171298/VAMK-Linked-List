@@ -40,7 +40,10 @@ bool isStringOverlap(linked_list *head, linked_list *node)
 	while(true)
 	{
 		if(head->data == nullptr)
+		{
+			head = head->next;
 			continue;
+		}
 		
 		// compare ending 
 		for(int i=0; i<count; i++)
@@ -63,8 +66,6 @@ bool isStringOverlap(linked_list *head, linked_list *node)
 // return true if node_1 after node_2, false otherwise
 bool linked_list_data_compare(linked_list *node_1, linked_list *node_2)
 {
-	if(node_1->data == nullptr && node_2->data == nullptr)
-		return false;
 	if(node_1->data == nullptr)
 		return false;
 	if(node_2->data == nullptr)

@@ -76,6 +76,21 @@ TEST(EMPTY, empty_5_overlap_string)
 	freeNode(node_1);
 }
 
+TEST(EMPTY, empty_6_NULL_string)
+{
+	linked_list *node_0 = generateNode(0, 0);
+	linked_list *node_1 = generateNode(1, 1);
+	linked_list *node_2 = generateNode(2, 2);
+	linkNodes(&node_0, &node_1);
+	linkNodes(&node_1, &node_2);
+	
+	free(node_1->data);
+	node_1->data = nullptr;
+	
+	auto result = empty_list(node_0);
+	EXPECT_EQ(3, result);
+}
+
 //----------------------Swap-items---------------------------------------------
 
 TEST(SWAP, swap_1_NULL_first)
@@ -347,6 +362,32 @@ TEST(SORT, sort_7_loop)
 	EXPECT_TRUE(checkNode(node_2, 1, "Data 1", node_3));
 	EXPECT_TRUE(checkNode(node_3, 0, "Data 0", node_1));
 	
+	freeNode(node_0);
+	freeNode(node_1);
+	freeNode(node_2);
+	freeNode(node_3);
+}
+
+TEST(SORT, sort_8_NULL_string)
+{
+	linked_list *node_0 = generateNode(0, 0);
+	linked_list *node_1 = generateNode(1, 1);
+	linked_list *node_2 = generateNode(3, 3);
+	linked_list *node_3 = generateNode(2, 2);
+	linkNodes(&node_0, &node_1);
+	linkNodes(&node_1, &node_2);
+	linkNodes(&node_2, &node_3);
+	auto saved_str = node_1->data;
+	node_1->data = nullptr;
+	int result = sort_list(node_0);
+	
+	EXPECT_EQ(0, result);
+	EXPECT_TRUE(checkNode(node_0, 1, nullptr, node_1));
+	EXPECT_TRUE(checkNode(node_1, 0, "Data 0", node_2));
+	EXPECT_TRUE(checkNode(node_2, 2, "Data 2", node_3));
+	EXPECT_TRUE(checkNode(node_3, 3, "Data 3", nullptr));
+	
+	node_1->data = saved_str;
 	freeNode(node_0);
 	freeNode(node_1);
 	freeNode(node_2);
