@@ -6,6 +6,7 @@ struct linked_list
 	char *data;
 	int index; /* position of the element in the list, normally not used with Linked Lists, just for exercise */
 	struct linked_list *next;
+	struct linked_list *prev;
 };
 typedef struct linked_list linked_list;
 
