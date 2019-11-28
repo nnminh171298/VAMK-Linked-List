@@ -26,7 +26,7 @@ after_success:
   - lcov --rc lcov_branch_coverage=1 -c -i -d . -o .coverage.base
   - lcov --rc lcov_branch_coverage=1 -c -d . -o .coverage.run
   - lcov --rc lcov_branch_coverage=1 -d . -a .coverage.base -a .coverage.run -o .coverage.total
-  - coveralls-lcov coverage.total
+  - coveralls-lcov .coverage.total
 
 branches:
   only:
