@@ -14,6 +14,7 @@ linked_list *generateNode(int index, int data)
 	new_node->data = data_ptr;
 	new_node->index = index;
 	new_node->next = nullptr;
+	new_node->prev = nullptr;
 	
 	return new_node;
 }
@@ -28,6 +29,7 @@ linked_list *generateNodeWithData(int index, char const *data)
 	new_node->data = data_ptr;
 	new_node->index = index;
 	new_node->next = nullptr;
+	new_node->prev = nullptr;
 	
 	return new_node;
 }
@@ -38,7 +40,7 @@ void freeNode(linked_list *node)
 	free(node);
 }
 
-bool checkNode(linked_list *node, int index, char const *data, linked_list *next)
+bool checkNode(linked_list *node, int index, char const *data, linked_list *prev, linked_list *next)
 {
 	bool data_compare = false;
 	if(node->data == nullptr && data == nullptr)
@@ -46,10 +48,11 @@ bool checkNode(linked_list *node, int index, char const *data, linked_list *next
 	else if(node->data != nullptr && data != nullptr)
 		data_compare = (strcmp(data, node->data) == 0);
 	
-	return (node->index == index) && (node->next == next) && data_compare;
+	return (node->index == index) && (node->prev == prev) && (node->next == next) && data_compare;
 }
 
 void linkNodes(linked_list **prev_node, linked_list **next_node)
 {
 	(*prev_node)->next = *next_node;
+	(*next_node)->prev = *prev_node;
 }
