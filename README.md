@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/nnminh171298/VAMK-Linked-List.svg?branch=additional)](https://travis-ci.com/nnminh171298/VAMK-Linked-List) [![Coverage Status](https://coveralls.io/repos/github/nnminh171298/VAMK-Linked-List/badge.svg?branch=additional)](https://coveralls.io/github/nnminh171298/VAMK-Linked-List?branch=additional)
+[![Build Status](https://travis-ci.com/nnminh171298/VAMK-Linked-List.svg?branch=bidir)](https://travis-ci.com/nnminh171298/VAMK-Linked-List) [![Coverage Status](https://coveralls.io/repos/github/nnminh171298/VAMK-Linked-List/badge.svg?branch=bidir)](https://coveralls.io/github/nnminh171298/VAMK-Linked-List?branch=bidir)
 # VAMK Linked List
 My C implementation of a doubly linked list, made during the course embedded system programming at VAMK
 # Specification

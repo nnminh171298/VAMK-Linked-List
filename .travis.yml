@@ -32,6 +32,7 @@ branches:
   only:
     - master
     - additional
+    - bidir
 
 notifications:
   recipients:
