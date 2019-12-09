@@ -24,11 +24,26 @@ bool isCircular(linked_list *list)
 			if(nodes[i] == list)
 				return true;
 		if(list->next == nullptr)
-			return false;
+			break;
 		nodes[count] = list;
 		list = list->next;
 		count++;
 	}
+	
+	count = 0;
+	while(true)
+	{
+		for(int i=0; i<count; i++)
+			if(nodes[i] == list)
+				return true;
+		if(list->prev == nullptr)
+			break;
+		nodes[count] = list;
+		list = list->prev;
+		count++;
+	}
+	
+	return false;
 }
 
 // assume not circular and not null
