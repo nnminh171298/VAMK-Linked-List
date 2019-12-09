@@ -67,7 +67,7 @@ bool isStringOverlap(linked_list *head, linked_list *node)
 }
 
 // return true if node_1 after node_2, false otherwise
-bool linked_list_data_compare(linked_list *node_1, linked_list *node_2)
+bool isWrongOrder(linked_list *node_1, linked_list *node_2)
 {
 	if(node_1->data == nullptr)
 		return false;
@@ -110,6 +110,7 @@ int add_to_list(linked_list *list, char *string)
 	new_node->data = data_ptr;
 	new_node->index = last_index + 1;
 	new_node->next = nullptr;
+	new_node->prev = list;
 	
 	// add to list
 	list->next = new_node;
@@ -184,8 +185,8 @@ int delete_from_list(linked_list *list, int index)
 	if(list == nullptr || isCircular(list))
 		return -1;
 	
-	auto head = list;
-	linked_list *prev = nullptr;
+	linked_list *head = list;
+	linked_list *after_deleted = nullptr;
 	while(true)
 	{
 		if(list == nullptr)
@@ -194,38 +195,37 @@ int delete_from_list(linked_list *list, int index)
 		{
 			if(isStringOverlap(head, list))
 				return -1;
-			if(prev != nullptr)
-				prev->next = list->next; // update A-B-C to A-C
+
+			linked_list *to_be_deleted = list;
+			if(list->next != nullptr)
+				list->next->prev = list->prev;
+			if(list->prev != nullptr)
+				list->prev->next = list->next;
 			else
-				head = list->next; // delete first, get new head
-			free(list->data); // nullptr still OK
-			free(list);
+				head = list->next;
+			after_deleted = list->next;
+
+			free(to_be_deleted->data); // nullptr still OK
+			free(to_be_deleted);
 			break;
 		}
-		prev = list;
 		list = list->next;
 	}
 	
-	if(head == nullptr)
-		return 0;
-	
-	// get the first item to reorder
-	if(prev == nullptr)
-		list = head;
-	else if(prev->next != nullptr)
-		list = prev->next;
-	else
-		return prev->index + 1;
-	
-	while(true)
+	list = head;
+	int count{0};
+	bool decrease_index{false};
+	while(list != nullptr)
 	{
-		list->index--;
-		if(list->next == nullptr)
-			break;
+		if(list == after_deleted)
+			decrease_index = true;
+		if(decrease_index)
+			list->index--;
+		count++;
 		list = list->next;
 	}
 	
-	return list->index + 1;
+	return count;
 }
 
 //----------------------Additional---------------------------------------------
@@ -285,7 +285,7 @@ int sort_list(linked_list *list)
 		int last_swap_pos = 0;
 		for(int i=0; i<unsorted_count-1; i++)
 		{
-			if(linked_list_data_compare(list, list->next))
+			if(isWrongOrder(list, list->next))
 			{
 				swap_items(list, list->next);
 				last_swap_pos = i;
