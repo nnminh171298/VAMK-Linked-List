@@ -35,8 +35,8 @@ branches:
     - bidir
 
 notifications:
-  recipients:
-    - nomi2208.ci@gmail.com
   email:
+    recipients:
+      - nomi2208.ci@gmail.com
     on_success: always
     on_failure: change
