@@ -661,3 +661,31 @@ TEST(DELETE, delete_9_NULL_string)
 
 	freeNode(node_0);
 }
+
+TEST(DELETE, delete_10_loop_prev)
+{
+	linked_list *node_0 = generateNode(0, 0);
+	linked_list *node_1 = generateNode(1, 1);
+	linked_list *node_2 = generateNode(2, 2);
+	linked_list *node_3 = generateNode(3, 3);
+	linkNodes(&node_0, &node_1);
+	linkNodes(&node_1, &node_2);
+	linkNodes(&node_2, &node_3);
+
+	// forward: 	0-1-2-3
+	// backward:	3-2-1-3...
+	node_1->prev = node_3;
+
+	auto result = delete_from_list(node_0, 2);
+	
+	EXPECT_EQ(-1, result);
+	EXPECT_TRUE(checkNode(node_0, 0, "Data 0", nullptr, node_1));
+	EXPECT_TRUE(checkNode(node_1, 1, "Data 1", node_3, node_2));
+	EXPECT_TRUE(checkNode(node_2, 2, "Data 2", node_1, node_3));
+	EXPECT_TRUE(checkNode(node_3, 3, "Data 3", node_2, nullptr));
+	
+	freeNode(node_0);
+	freeNode(node_1);
+	freeNode(node_2);
+	freeNode(node_3);
+}
