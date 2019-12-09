@@ -1,6 +1,7 @@
 [![Build Status](https://travis-ci.com/nnminh171298/VAMK-Linked-List.svg?branch=bidir)](https://travis-ci.com/nnminh171298/VAMK-Linked-List) [![Coverage Status](https://coveralls.io/repos/github/nnminh171298/VAMK-Linked-List/badge.svg?branch=bidir)](https://coveralls.io/github/nnminh171298/VAMK-Linked-List?branch=bidir)
 # VAMK Linked List
-My C implementation of a doubly linked list, made during the course embedded system programming at VAMK
+My C implementation of a doubly linked list, made during the course embedded system programming at VAMK.  
+Modified functions, so that they can handle doubly linked lists.  
 # Specification
 All functions (except display item) expects to get the head of the list as a parameter  
 All functions will return -1 as an error, if linked list pointer is NULL  
