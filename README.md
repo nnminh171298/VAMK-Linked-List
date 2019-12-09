@@ -1,6 +1,10 @@
 [![Build Status](https://travis-ci.com/nnminh171298/VAMK-Linked-List.svg?branch=master)](https://travis-ci.com/nnminh171298/VAMK-Linked-List) [![Coverage Status](https://coveralls.io/repos/github/nnminh171298/VAMK-Linked-List/badge.svg?branch=master)](https://coveralls.io/github/nnminh171298/VAMK-Linked-List?branch=master)
 # VAMK Linked List
 My C implementation of a linked list, made during the course embedded system programming at VAMK
+# Branches
+* __master__: Basic functions  
+* __additional__: Add additional functions  
+* __bidir__: Modified functions to support doubly linked lists
 # Specification
 All functions (except display item) expects to get the head of the list as a parameter  
 All functions will return -1 as an error, if linked list pointer is NULL  
